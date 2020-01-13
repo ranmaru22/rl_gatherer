@@ -1,5 +1,8 @@
 """Global settings file."""
 
+# Used for importing secrety keys from local file.
+import json
+
 class Settings():
     """Stores all the settings for the script."""
 
@@ -14,11 +17,15 @@ class Settings():
         output_file: 'sample_output.txt'
         allow_duplicates: False
 
+        # Load keys from local json file.
+        with open("keys.json") as f_obj:
+            _keys = json.load(f_obj)
+
         self.app = {
             # Secret app settings. Do not share!!
-            # Remove before committing.
-            'APP-ID': '',
-            'APP-SECRET': ''
+            # Remove before committing if provided directly.
+            'APP-ID': _keys['APP-ID'],
+            'APP-SECRET': _keys['APP-SECRET']
         }
 
         # Misc settings. Don't change these!
