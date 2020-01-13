@@ -1,4 +1,4 @@
-# rl_follower
+# rl_gatherer
 
 This is a little practice project on my journey to learn Python. It's a script which scrapes a Reddit thread for links and returns a list and optional data about them, such as how often a particular website was linked to. 
 
