@@ -1,6 +1,6 @@
 # rl_follower
 
-This is a little practice project on my journey to learn Python. It's a script which follows links on Reddit and returns data about them, such as how often a particular website was linked to. 
+This is a little practice project on my journey to learn Python. It's a script which scrapes a Reddit thread for links and returns a list and optional data about them, such as how often a particular website was linked to. 
 
 ### Using
 
@@ -8,7 +8,7 @@ This is a little practice project on my journey to learn Python. It's a script w
 
 ## Built with
 
-* [BeautifulSoup 4](https://www.crummy.com/software/BeautifulSoup/) - The web framework used
+* [Reddit API](https://github.com/reddit-archive/reddit/wiki/API)
 
 ## Authors
 
