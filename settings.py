@@ -3,6 +3,8 @@
 # Used for importing secrety keys from local file.
 import json
 
+import praw
+
 
 class Settings():
     """Stores all the settings for the script."""
@@ -31,3 +33,4 @@ class Settings():
 
         # Misc settings. Don't change these!
         self.match_pattern = 'http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    

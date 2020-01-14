@@ -9,10 +9,11 @@ This is a little practice project on my journey to learn Python. It's a script w
 ## Built with
 
 * [Reddit API](https://github.com/reddit-archive/reddit/wiki/API)
+* [PRAW](https://praw.readthedocs.io)
 
 ## Authors
 
-* **Alex Sun** - *Initial work* - [ranmaru22](https://github.com/ranmaru22)
+* **Alex Sun** / [ranmaru22](https://github.com/ranmaru22) - *Initial work*
 
 ## License
 

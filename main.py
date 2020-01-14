@@ -2,12 +2,16 @@
 
 import requests
 import re
+import json
+
+import praw
 
 from settings import Settings
 import get_input as gi
 import url_functions as uf
 import parse
 import format
+
 
 class RL_Gatherer():
     """Overall class to run the script."""
@@ -16,34 +20,24 @@ class RL_Gatherer():
         self.settings = Settings()
 
     def setup(self):
-        """Set everyting up for the link gathering."""
-        demo = '/r/learnprogramming/comments/eojk97'
-        url = gi.get_url(demo)
-        response = uf.create_web_object(url['thread'], self.settings)
-        return response
+        """Initialize the Reddit instance, gets ID from user and returns it."""
+
+        self.reddit = praw.Reddit(user_agent=self.settings.headers['User-Agent'],
+                                  client_id=self.settings.app['APP-ID'],
+                                  client_secret=self.settings.app['APP-SECRET'])
+        demo = 'eojk97'
+        id = gi.get_id(demo)
+        return id
 
     def run(self):
         """The main cycle for the script."""
 
-        # Create the data object
-        data = self.setup()
+        id = self.setup()
+        submission = self.reddit.submission(id=id)
 
-        # Get content dicts for both the thread itself and all the comments.
-        ti = uf.get_url_patterns(data)
-        ci = uf.get_url_patterns(data, results="comments")
-
-        thread_info = parse.get_data(ti)
-        comments_info = parse.get_data(ci, setting="comments")
-
-        links = parse.extract_links(thread_info, self.settings)
-        for comment in comments_info:
-            new_link = parse.extract_links(comment, self.settings)
-            if set(new_link).intersection(links) \
-                    and not self.settings.allow_duplicates:
-                continue
-            links += new_link
-
-        format.print_links(links)
+        for top_level_comment in submission.comments:
+            for link in re.findall(self.settings.match_pattern, top_level_comment.body):
+                print(link)
 
 
 if __name__ == '__main__':
