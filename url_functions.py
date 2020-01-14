@@ -1,6 +1,7 @@
 """Functions that process URLs and links."""
 
 import requests
+
 from errors import ResponseError, TokenError
 
 

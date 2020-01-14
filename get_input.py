@@ -3,7 +3,7 @@
 import re
 
 
-def get_url():
+def get_url(url=None):
     """
     Prompts the user to enter link to a Reddit thread.
     Format should be either:
@@ -13,7 +13,8 @@ def get_url():
     prompt = "Please enter a valid Reddit link starting with /r/ and the name of the Subreddit, followed by the link to the comments.\n-> "
 
     url_format = "^\/?(r\/(\S+)\/comments\/([a-z0-9]{6}))\/?.*$"
-    url = input(prompt)
+    if not url:
+        url = input(prompt)
 
     if re.search(url_format, url) is None:
         # Raise exception is not valid.

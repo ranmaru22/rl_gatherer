@@ -3,23 +3,24 @@
 # Used for importing secrety keys from local file.
 import json
 
+
 class Settings():
     """Stores all the settings for the script."""
 
     def __init__(self):
         self.headers = {
             # Sets the HTTP headers for the requests.
-            'User-Agent': 'Python:rf_gatherer:v0.1 (by /u/0xMii)'
+            'User-Agent': 'Python:rf_gatherer:v0.1 (by /u/0xMii)',
         }
 
         # Configure how the output is returned
-        save_to_file: False
-        output_file: 'sample_output.txt'
-        allow_duplicates: False
+        self.save_to_file = False
+        self.output_file = 'sample_output.txt'
+        self.allow_duplicates = False
 
         # Load keys from local json file.
-        with open("keys.json") as f_obj:
-            _keys = json.load(f_obj)
+        # with open("keys.json") as f_obj:
+        #     _keys = json.load(f_obj)
 
         self.app = {
             # Secret app settings. Do not share!!

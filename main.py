@@ -2,12 +2,12 @@
 
 import requests
 import re
+
+from settings import Settings
 import get_input as gi
 import url_functions as uf
 import parse
-
-from settings import Settings
-
+import format
 
 class RL_Gatherer():
     """Overall class to run the script."""
@@ -17,9 +17,9 @@ class RL_Gatherer():
 
     def setup(self):
         """Set everyting up for the link gathering."""
-        # url_dict = gi.get_url()
-        demo = 'r/learnpython/comments/593ox9'
-        response = uf.create_web_object(demo, self.settings)
+        demo = '/r/learnprogramming/comments/eojk97'
+        url = gi.get_url(demo)
+        response = uf.create_web_object(url['thread'], self.settings)
         return response
 
     def run(self):
@@ -37,9 +37,13 @@ class RL_Gatherer():
 
         links = parse.extract_links(thread_info, self.settings)
         for comment in comments_info:
-            links += parse.extract_links(comment, self.settings)
+            new_link = parse.extract_links(comment, self.settings)
+            if set(new_link).intersection(links) \
+                    and not self.settings.allow_duplicates:
+                continue
+            links += new_link
 
-        print(links)
+        format.print_links(links)
 
 
 if __name__ == '__main__':
