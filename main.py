@@ -24,7 +24,7 @@ class RL_Gatherer(object):
         demo = 'eojk97'
         id = gi.get_id(demo)
         test_sub = uf.Submission(self.reddit, self.settings, id)
-        test_sub.print_links(show_user=False)
+        test_sub.print_links(show_user=True)
 
 
 if __name__ == '__main__':

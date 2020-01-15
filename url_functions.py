@@ -48,7 +48,7 @@ class Submission(object):
         c = 1
         for link_tuple in self.links:
             if show_user:
-                print(f"{c}. {link_tuple[0]} - {link_tuple[1]}")
+                print(f"{c}. <{link_tuple[1]}> {link_tuple[0]}")
             else:
                 print(f"{c}. {link_tuple[0]}")
             c += 1
