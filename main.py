@@ -23,8 +23,9 @@ class RL_Gatherer(object):
 
         # Query the user for a submission ID.
         id = gi.get_id()
-        test_sub = uf.Submission(self.reddit, self.settings, id)
-        test_sub.print_links(show_user=True)
+        # Create the submission object from the ID. 
+        sub = uf.Submission(self.reddit, self.settings, id)
+        sub.print_links(show_user=True)
 
 
 if __name__ == '__main__':
