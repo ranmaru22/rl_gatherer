@@ -19,14 +19,14 @@ class Settings(object):
         self.allow_duplicates = False
 
         # Load keys from local json file.
-        # with open("keys.json") as f_obj:
-        #     __keys = json.load(f_obj)
+        with open("keys.json") as f_obj:
+            __keys = json.load(f_obj)
 
         self.app = {
             # Secret app settings. Do not share!!
             # Remove before committing if provided directly.
-            'APP-ID': 'AO_DNY4B6vaTcg', #__keys['APP-ID'],
-            'APP-SECRET': 'tT4FR6ZhWWky2ba7_lLDG7-wEyY' #__keys['APP-SECRET']
+            'APP-ID': __keys['APP-ID'],
+            'APP-SECRET': __keys['APP-SECRET']
         }
 
         # Misc settings. Don't change these!
