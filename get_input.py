@@ -2,6 +2,7 @@
 
 import re
 
+from errors import IDError
 
 def get_id(id=None):
     """Prompts the user to enter a submission ID."""
@@ -13,6 +14,11 @@ def get_id(id=None):
 
     if re.search(id_format, id) is None:
         # Raise exception is not valid.
-        raise ValueError("ID not in required format.")
+        raise IDError("ID not in required format.")
 
     return id
+
+
+def get_output_format():
+    """Asks the user how he wants the data presented."""
+    pass

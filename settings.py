@@ -3,16 +3,14 @@
 # Used for importing secrety keys from local file.
 import json
 
-import praw
 
-
-class Settings():
+class Settings(object):
     """Stores all the settings for the script."""
 
     def __init__(self):
         self.headers = {
             # Sets the HTTP headers for the requests.
-            'User-Agent': 'Python:rf_gatherer:v0.1 (by /u/0xMii)',
+            'USER-AGENT': 'Python:rf_gatherer:v0.1 (by /u/0xMii)',
         }
 
         # Configure how the output is returned
@@ -21,14 +19,14 @@ class Settings():
         self.allow_duplicates = False
 
         # Load keys from local json file.
-        with open("keys.json") as f_obj:
-            _keys = json.load(f_obj)
+        # with open("keys.json") as f_obj:
+        #     __keys = json.load(f_obj)
 
         self.app = {
             # Secret app settings. Do not share!!
             # Remove before committing if provided directly.
-            'APP-ID': _keys['APP-ID'],
-            'APP-SECRET': _keys['APP-SECRET']
+            'APP-ID': 'AO_DNY4B6vaTcg', #__keys['APP-ID'],
+            'APP-SECRET': 'tT4FR6ZhWWky2ba7_lLDG7-wEyY' #__keys['APP-SECRET']
         }
 
         # Misc settings. Don't change these!

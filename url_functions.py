@@ -1,50 +1,54 @@
-"""
-Functions that process URLs and links.
-LEGACY FILE -- NOT NEEDED WITH PRAW
-"""
+"""Functions that process URLs and links."""
 
-# import requests
-
-# from errors import ResponseError, TokenError
+import re
 
 
-# def create_web_object(thread, settings):
-#     """Takes a link to a Reddit thread as input and returns a parsable object as a result."""
+class Submission(object):
+    """
+        Class for Submission Object which stores links.
+        Every instance must have one fixed ID.
+    """
 
-#     url = f"https://www.reddit.com/{thread}/.json"
-#     url = url.encode()
+    def __init__(self, reddit, settings, id):
+        self.reddit = reddit
+        self.settings = settings
+        self.id = id
+        self.links = self.__generate_links()
+        self.allow_duplicates = self.settings.allow_duplicates
 
-#     # Set the auth tokens for Reddit so we're not rate limited
-#     auth = requests.auth.HTTPBasicAuth(
-#         settings.app['APP-ID'], settings.app['APP-SECRET'])
+    def __generate_links(self):
+        """Generates a link list to be stored in the self.links variable."""
 
-#     r = requests.get(url, headers=settings.headers, auth=auth)
-#     if r.status_code == 401:
-#         raise TokenError("401: Please refresh auth token.")
-#     elif r.status_code != 200:
-#         raise ResponseError(
-#             "Returned web object does not have status code 200.")
+        sub = self.reddit.submission(id=self.id)
+        links = list()
+        for comment in sub.comments:
+            for link in re.findall(self.settings.match_pattern, comment.body):
+                links.append((self.__clean_url(link), comment.author.name))
+        return links
 
-#     return r
+    def __clean_url(self, link):
+        """Cleans a link according to the default URL pattern."""
+        c_link = re.sub("[]):,.]+?$", '', link).split(']')
+        return c_link[0]
 
+    def tgl_duplicates(self):
+        """Toggles the local allow_duplicates setting."""
 
-# def get_url_patterns(w_obj, results="thread"):
-#     """Takes a web object and returns patterns to scrape comments and selftext."""
+        if self.allow_duplicates:
+            self.allow_duplicates = False
+            print("Show duplicate links: OFF")
+        else:
+            self.allow_duplicates = True
+            print("Show duplicate links: ON")
 
-#     data = w_obj.json()
-#     if results == 'thread':
-#         # results="thread" returns a dictionary.
-#         return data[0]['data']['children'][0]['data']
-#     elif results == 'comments':
-#         # results="children" returns a list of dictionaries.
-#         return data[1]['data']['children']
-#     else:
-#         raise AttributeError("Invalid attribute for 'results'")
+    def print_links(self, show_user=False):
+        """Prints extraced links to the CLI."""
 
-
-# # This is a debug/legacy function. We don't need to use bs4
-# # if we work with the Reddit API.
-# # def _make_soup(w_obj):
-# #     """Takes a request object and turns it into a bs4 Soup."""
-# #     soup = BeautifulSoup(w_obj, 'html.parser')
-# #     return soup
+        print("Links found:\n------------")
+        c = 1
+        for link_tuple in self.links:
+            if show_user:
+                print(f"{c}. {link_tuple[0]} - {link_tuple[1]}")
+            else:
+                print(f"{c}. {link_tuple[0]}")
+            c += 1
