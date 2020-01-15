@@ -21,8 +21,7 @@ class RL_Gatherer(object):
     def run(self):
         """The main cycle for the script."""
 
-        demo = 'eojk97'
-        id = gi.get_id(demo)
+        id = gi.get_id()
         test_sub = uf.Submission(self.reddit, self.settings, id)
         test_sub.print_links(show_user=True)
 

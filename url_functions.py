@@ -44,6 +44,10 @@ class Submission(object):
     def print_links(self, show_user=False):
         """Prints extraced links to the CLI."""
 
+        if len(self.links) < 1:
+            print("No links found.")
+            return
+
         print("Links found:\n------------")
         c = 1
         for link_tuple in self.links:
@@ -52,3 +56,4 @@ class Submission(object):
             else:
                 print(f"{c}. {link_tuple[0]}")
             c += 1
+            
