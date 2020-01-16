@@ -1,6 +1,7 @@
 """Global settings file."""
 
-# Used for importing secrety keys from local file.
+# Used for importing secret keys from local files or environment variables.
+import os
 import json
 
 
@@ -25,8 +26,8 @@ class Settings(object):
         self.app = {
             # Secret app settings. Do not share!!
             # Remove before committing if provided directly.
-            'APP-ID': __keys['APP-ID'],
-            'APP-SECRET': __keys['APP-SECRET']
+            'APP-ID': os.getenv("APP_ID"), #__keys['APP-ID'],
+            'APP-SECRET': os.getenv("APP_SECRET") #__keys['APP-SECRET']
         }
 
         # Misc settings. Don't change these!
