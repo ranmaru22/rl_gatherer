@@ -50,7 +50,16 @@ class Submission(object):
 
         print("Links found:\n------------")
         c = 1
+        if not self.allow_duplicates:
+            # Create a list of already printed links to check for duplicates.
+            record = list()
         for link_tuple in self.links:
+            if not self.allow_duplicates:
+                # If the link is already in the list, skip it, else add it to the list.link_tuple
+                # Only add the link itself, user is irrelevant.
+                if link_tuple[0] in record:
+                    continue
+                record.append(link_tuple[0])
             if show_user:
                 print(f"{c}. <{link_tuple[1]}> {link_tuple[0]}")
             else:
